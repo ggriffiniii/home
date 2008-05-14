@@ -1,2 +1,6 @@
+[user]
+	email = nobody@nowhere.com
+	name  = unkown
+
 [alias]
 	stat = !git status | less
