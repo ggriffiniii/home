@@ -1,0 +1,68 @@
+set imap_authenticators="login"
+set spoolfile="=inbox/"
+set save_name=yes
+set record="=sent/"
+auto_view text/html application/msword application/x-msword application/vnd.ms-excel
+alternative_order text/plain text
+set edit_headers
+set editor=$HOME/mutt/vimmutt
+set fast_reply=yes
+set include=yes
+set query_command = "$HOME/mutt/mutt_ldap_query '%s'"
+
+#mail header to show
+ignore *
+unignore  Date To Cc From Subject
+hdr_order Date From To Cc Subject
+
+#mailboxes
+mailboxes =inbox
+mailboxes =fw-admin
+mailboxes =archie
+mailboxes =nagios
+
+#keybindings
+bind index Q	 noop
+bind pager Q	 noop
+bind editor <f5> complete-query
+
+set sort=threads
+set sort_browser=reverse-date
+set sort_aux=last-date-received
+set timeout=15
+set move=no
+set pager_index_lines=20
+
+#GNUPG
+set pgp_use_gpg_agent
+set pgp_replyencrypt
+set pgp_verify_sig=yes
+set pgp_timeout=2
+
+#don't encrypt by default
+send-hook . unset pgp_autoencrypt
+send-hook . set pgp_create_traditional=no
+#sign by default
+send-hook . set pgp_autosign
+
+#send legacy pgp to the devils
+send-hook e\.clark@f5\.com set pgp_create_traditional=yes
+#don't sign to technews
+send-hook technews@lists\.f5net\.com unset pgp_autosign
+
+my_hdr From: Glenn Griffin <g.griffin@f5.com>
+color index cyan		black	"~p"
+color index green		black	"~t root@pookie.f5net.com"
+color index green		black	"~f archie"
+#color index yellow		black	"~f b.tacon@f5\.com"
+color index brightred		black 	"~N !~T !~F !~P !~p"
+color index brightyellow	black	"~f root@f5\.com ~s 'dont forget the tps report' ~t g\.griffin@f5\.com"
+color index magenta		black	"~f nagios"
+color index blue		black	"~f lists.f5.com"
+#macros
+macro pager <F8> |remind-meeting
+macro pager <F2> |/home/griffin/scripts/create_upgrade_list.pl
+macro pager <f6> !mail-filter
+macro index <f6> !mail-filter
+
+alias bri bri@ifokr.org

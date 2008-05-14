@@ -1,0 +1,18 @@
+# .procmailrc
+# routes incoming mail to appropriate mailboxes\
+#VERBOSE=on
+PATH=/usr/bin:/usr/local/bin
+MAILDIR=$HOME/Mail/
+DEFAULT=$HOME/Mail/inbox/
+LOGFILE=$HOME/pm.log
+SHELL=/bin/sh
+
+:0:
+* ^From: ithelpdesk@f5\.com
+* ^To: luckydevils@f5\.com
+* ^Received: from ATHENS \(\[192\.168\.16\.88\]\)
+athens/
+
+:0 Wh: msgid.lock
+| formail -D 8192 .msgid.cache
+
