@@ -56,6 +56,7 @@ keychain ~/.ssh/*_rsa
 #needed for mutt to work with gpg-agent
 export GPG_TTY=$(tty)
 
+alias koshme='host openssh. kosh.f5.com & sleep 1 && ssh kosh.f5.com'
 alias forgeme='daemonize rdesktop -K -g 1280x1024 -u griffin-admin -a 16 -r disk:sbox=/home/griffin forge'
 
 set -o vi
